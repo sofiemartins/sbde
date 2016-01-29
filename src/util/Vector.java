@@ -31,8 +31,8 @@ public class Vector {
 		return vector.getX()*x1 + vector.getY()*x2;
 	}
 	
-	public Point shift(Point point, Vector vector){
-		return new Point((int)point.getX()+vector.getX(), (int)point.getY()+vector.getY());
+	public Point shift(Point point){
+		return new Point((int)point.getX()+x1, (int)point.getY()+x1);
 	}
 	
 	public Vector add(Vector vector){
