@@ -42,4 +42,8 @@ public class Vector {
 	public Vector subtract(Vector vector){
 		return new Vector(vector.getX()-x1, vector.getY()-x2);
 	}
+	
+	public String toString(){
+		return "Vector={ " + x1 + ";" + x2 + "}";
+	}
 }

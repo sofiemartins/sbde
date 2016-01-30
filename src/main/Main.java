@@ -15,7 +15,7 @@ public class Main {
 			@Override
 			public void run(){
 				SBDEFrame frame = new SBDEFrame();
-				//setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				frame.setSize(400, 400);
 				frame.setLayout(new BorderLayout());
 				frame.add(new Display(), BorderLayout.CENTER);

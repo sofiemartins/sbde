@@ -5,7 +5,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Color;
 import java.util.Date;
@@ -28,10 +27,10 @@ public class MovableObject {
 	public void evaluatePosition(){
 		Date currentTime = new Date();
 		double deltaTInS = (currentTime.getTime()-lastEvaluation.getTime())/1000.00;
-		System.out.println(deltaTInS);
 		box = new Rectangle2D.Double(box.getX()+ velocity.getX()*deltaTInS + 0.5*acceleration.getX()*deltaTInS*deltaTInS,
 							box.getY()+ velocity.getY()*deltaTInS + 0.5*acceleration.getY()*deltaTInS*deltaTInS,
 							box.x, box.y);
+		velocity = new Vector(velocity.getX()+acceleration.getX(), velocity.getY()+acceleration.getY());
 		lastEvaluation = currentTime;
 	}
 	
