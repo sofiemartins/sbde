@@ -1,7 +1,6 @@
 package gui;
 
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
@@ -27,13 +26,13 @@ public class Display extends JPanel implements MouseListener{
 		addMouseListener(this);
 		setBackground(Color.white);
 		object.move(new Vector(20, 20));
-		timer = new Timer(100, new ActionListener(){
+		timer = new Timer(10, new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				repaint(1);
+				repaint();
 			}
 		});
-		timer1 = new Timer(100, new ActionListener(){
+		timer1 = new Timer(10, new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
 				object.evaluatePosition();
@@ -48,8 +47,7 @@ public class Display extends JPanel implements MouseListener{
 		super.paintComponent(graphics);
 		Graphics2D g = (Graphics2D)graphics;
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g.drawOval((int)object.getPosition().getX(), (int)object.getPosition().getY(), 
-				(int)object.getShape().getWidth(), (int)object.getShape().getHeight());
+		object.draw(g);
 	}
 	
 	@Override

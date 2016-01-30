@@ -1,44 +1,38 @@
 package util;
 
 import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.Color;
 import java.util.Date;
 
 public class MovableObject {
 	
-	Ellipse2D.Double shape;
-	Point position;//center of mass??
-	Vector velocity = new Vector(0,0);
-	Vector acceleration = new Vector(0,0);
-	Date lastEvaluation = new Date();
-	BufferedImage icon;
+	private Shape shape;
+	private Rectangle2D.Double box;
+	private Vector velocity = new Vector(0,0);
+	private Vector acceleration = new Vector(0,0);
+	private Date lastEvaluation = new Date();
+	private BufferedImage image;
 	
-	public MovableObject(Ellipse2D.Double objectShape){
+	public MovableObject(Shape objectShape){
 		shape = objectShape;
-		position = new Point(0, 0);
-		velocity = new Vector(0, 0);
-		acceleration = new Vector(0, 0);
-		icon = getImage();
+		box = (Rectangle2D.Double)objectShape.getBounds2D();
+		image = getImage();
 	}
 	
 	public void evaluatePosition(){
 		Date currentTime = new Date();
-		double deltaTInS = (currentTime.getTime()-lastEvaluation.getTime())/1000.0;
-		position = new Point((int)(position.getX()+ velocity.getX()*deltaTInS + 0.5*acceleration.getX()*deltaTInS*deltaTInS),
-							(int)(position.getY()+ velocity.getY()*deltaTInS + 0.5*acceleration.getY()*deltaTInS*deltaTInS));
+		double deltaTInS = (currentTime.getTime()-lastEvaluation.getTime())/1000.00;
+		System.out.println(deltaTInS);
+		box = new Rectangle2D.Double(box.getX()+ velocity.getX()*deltaTInS + 0.5*acceleration.getX()*deltaTInS*deltaTInS,
+							box.getY()+ velocity.getY()*deltaTInS + 0.5*acceleration.getY()*deltaTInS*deltaTInS,
+							box.x, box.y);
 		lastEvaluation = currentTime;
-	}
-	
-	public MovableObject(Ellipse2D.Double objectShape, Point objectPosition){
-		shape = objectShape;
-		position = objectPosition;
-		icon = getImage();
 	}
 	
 	public boolean collidesWith(Point point){
@@ -55,37 +49,21 @@ public class MovableObject {
 		evaluatePosition();
 	}
 	
-	public Point getPosition(){
-		return position;
+	public Shape getShape(){
+		return shape;
 	}
 	
-	public BufferedImage getPicture(){
-		return icon;
+	public void draw(Graphics2D g){
+		g.drawImage(image, (int)box.x, (int)box.y, null);
 	}
 	
 	private BufferedImage getImage(){
-		Rectangle2D rectangleFit = shape.getBounds2D();
-		BufferedImage icon = new BufferedImage((int)(rectangleFit.getWidth()+10),
-												(int)(rectangleFit.getHeight()+10),
-												BufferedImage.TYPE_INT_ARGB); 
-		Graphics2D g = icon.createGraphics();
+		BufferedImage image = new BufferedImage((int)(box.x+box.height+10), (int)(box.y+box.width+10), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = image.createGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setColor(Color.red);
-		g.fill(shape);
 		g.setColor(Color.black);
 		g.draw(shape);
-		return icon;
-	}
-	
-	public Point getDrawingPosition(){
-		Rectangle2D rectangleFit = shape.getBounds2D();
-		int upperLeftX = (int)(rectangleFit.getX()+position.getX());
-		int upperLeftY = (int)(rectangleFit.getY()+position.getY());
-		return new Point(upperLeftX, upperLeftY);
-	}
-	
-	public Ellipse2D.Double getShape(){
-		return shape;
+		return image.getSubimage((int)box.x, (int)box.y, (int)box.width+10, (int)box.height+10);
 	}
 
 }
