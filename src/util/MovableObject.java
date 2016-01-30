@@ -29,9 +29,9 @@ public class MovableObject {
 	
 	public void evaluatePosition(){
 		Date currentTime = new Date();
-		long deltaTInS = (currentTime.getTime()-lastEvaluation.getTime())/1000;
-		position = new Point((int)position.getX()+ (int)(velocity.getX()*deltaTInS) + (int)(0.5*acceleration.getX()*deltaTInS*deltaTInS),
-							(int)position.getY()+ (int)(velocity.getY()*deltaTInS) + (int)(0.5*acceleration.getY()*deltaTInS*deltaTInS));
+		double deltaTInS = (currentTime.getTime()-lastEvaluation.getTime())/1000.0;
+		position = new Point((int)(position.getX()+ velocity.getX()*deltaTInS + 0.5*acceleration.getX()*deltaTInS*deltaTInS),
+							(int)(position.getY()+ velocity.getY()*deltaTInS + 0.5*acceleration.getY()*deltaTInS*deltaTInS));
 		lastEvaluation = currentTime;
 	}
 	
