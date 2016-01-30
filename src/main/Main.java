@@ -18,7 +18,7 @@ public class Main {
 				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				frame.setSize(400, 400);
 				frame.setLayout(new BorderLayout());
-				frame.add(new Display(), BorderLayout.CENTER);
+				frame.add(Display.getInstance(), BorderLayout.CENTER);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setVisible(true);				
 			}

@@ -22,6 +22,11 @@ public class Display extends JPanel implements MouseListener{
 	public static final long serialVersionUID = 43365477651236654L;
 	Timer timer, timer1;
 	private MovableObject object = new MovableObject(new Rectangle2D.Double(5, 5, 50, 50));
+	private static Display display = new Display();
+	
+	public static Display getInstance(){
+		return display;
+	}
 	
 	public Display(){
 		addMouseListener(this);
