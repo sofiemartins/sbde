@@ -3,6 +3,7 @@ package util;
 import gui.Display;
 
 import java.awt.Shape;
+import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
@@ -11,6 +12,7 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Color;
 import java.util.Date;
+import java.util.ArrayList;
 
 public class MovableObject {
 	
@@ -20,6 +22,11 @@ public class MovableObject {
 	private Vector acceleration = new Vector(0,0);
 	private Date lastEvaluation = new Date();
 	private BufferedImage image;
+	
+	private static final Vector topWallNormal = new Vector(0, 1);
+	private static final Vector rightWallNormal = new Vector(-1, 0);
+	private static final Vector bottomWallNormal = new Vector(0, -1);
+	private static final Vector leftWallNormal = new Vector(1, 0);
 	
 	public MovableObject(Shape objectShape){
 		shape = objectShape;
@@ -42,15 +49,10 @@ public class MovableObject {
 		return shape.contains(point);
 	}
 	
-	public boolean collidesWithWall(){
-		Display display = Display.getInstance();
-		if(shape.intersects(new Rectangle(-50, -50, 50, display.getHeight()+100)) ||
-				shape.intersects(new Rectangle(-50, -50, display.getWidth()+100, 50)) ||
-				shape.intersects(new Rectangle(display.getHeight()+50, -50, 50, display.getHeight()+100)) ||
-				shape.intersects(new Rectangle(-50, display.getHeight()+50, display.getWidth()+100, 50))){
-			return true;
+	public void checkForWallCollision(){
+		if(collidesWithTopWall()){
+			velocity = sha
 		}
-		return false;
 	}
 	
 	public boolean collidesWithTopWall(){
@@ -116,6 +118,18 @@ public class MovableObject {
 		g.setColor(Color.black);
 		g.draw(shape);
 		return image.getSubimage((int)box.x, (int)box.y, (int)box.width+10, (int)box.height+10);
+	}
+	
+	private Vector centerOfMass(){
+		Vector sum = new Vector(0, 0);
+		int numberOfIterations = 0;
+		double coords[] = new double[6];
+		for(PathIterator iterator = shape.getPathIterator(null); iterator.isDone(); iterator.next()){
+			iterator.currentSegment(coords);
+			sum.add(new Vector((int)coords[0], (int)coords[1]));
+			numberOfIterations++;
+		}
+		return sum.multiply((1/numberOfIterations));
 	}
 
 }
