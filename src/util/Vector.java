@@ -4,18 +4,23 @@ import java.awt.Point;
 
 public class Vector {
 	
-	int x1,x2;
+	private double x1,x2;
 	
 	public Vector(int x, int y){
 		x1 = x;
 		x2 = y;
 	}
 	
-	public int getX(){
+	public Vector(double x, double y){
+		x1 = x;
+		x2 = y;
+	}
+	
+	public double getX(){
 		return x1;
 	}
 	
-	public int getY(){
+	public double getY(){
 		return x2;
 	}
 	
@@ -27,12 +32,12 @@ public class Vector {
 		return new Vector(a*x1, a*x2);
 	}
 	
-	public int multiply(Vector vector){
+	public double multiply(Vector vector){
 		return vector.getX()*x1 + vector.getY()*x2;
 	}
 	
 	public Point shift(Point point){
-		return new Point((int)point.getX()+x1, (int)point.getY()+x1);
+		return new Point((int)(point.getX()+x1), (int)(point.getY()+x1));
 	}
 	
 	public Vector add(Vector vector){
