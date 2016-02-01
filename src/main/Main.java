@@ -16,7 +16,7 @@ public class Main {
 			public void run(){
 				SBDEFrame frame = new SBDEFrame();
 				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-				frame.setSize(400, 400);
+				frame.setSize(900, 400);
 				frame.setLayout(new BorderLayout());
 				frame.add(Display.getInstance(), BorderLayout.CENTER);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

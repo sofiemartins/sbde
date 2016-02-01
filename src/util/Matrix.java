@@ -15,6 +15,10 @@ public class Matrix {
 		return new Vector(a11*vector.getX()+a12*vector.getY(), a21*vector.getX()+a22*vector.getY());
 	}
 	
+	public Vector transformRounded(Vector vector){
+		return new Vector((int)(a11*vector.getX()+a12*vector.getY()), (int)(a21*vector.getX()+a22*vector.getY()));
+	}
+	
 	public static Matrix rotationMatrix(double alpha){
 		return new Matrix(Math.cos(alpha), -Math.sin(alpha), Math.sin(alpha), Math.cos(alpha));
 	}

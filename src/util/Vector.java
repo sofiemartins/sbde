@@ -29,6 +29,10 @@ public class Vector {
 	}
 	
 	public Vector multiply(int a){
+		return multiply((double)a);
+	}
+	
+	public Vector multiply(double a){
 		return new Vector(a*x1, a*x2);
 	}
 	
