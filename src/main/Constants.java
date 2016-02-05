@@ -8,8 +8,8 @@ import util.Vector;
 
 public class Constants {
 	
-	public static final double g = 9.81;//Px/s^2
-	public static final double viskositaetDesUmgebungsgases = 17.1; //muPa*s (Luft bei 273K)
+	public static final double g = 981;//Px/s^2
+	public static final double eta = 1.71; //17.1 muPa*s (Luft bei 273K); Viskositaet des Umgebungsgases
 	
 	public static ArrayList<MovableObject> objects = new ArrayList<MovableObject>();
 	

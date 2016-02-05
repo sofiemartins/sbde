@@ -45,17 +45,17 @@ public class MovableObject {
 		box = new Rectangle2D.Double(box.getX()+ velocity.getX()*deltaTInS + 0.5*acceleration.getX()*deltaTInS*deltaTInS,
 							box.getY()+ velocity.getY()*deltaTInS + 0.5*acceleration.getY()*deltaTInS*deltaTInS,
 							box.width, box.height);
-		velocity = new Vector(velocity.getX()+acceleration.getX(), velocity.getY()+acceleration.getY());
+		velocity = velocity.add(acceleration.multiply(deltaTInS));
+		velocity = velocity.add(airResistance().multiply(deltaTInS));
 		checkForWallCollision();
 		lastEvaluation = currentTime;
 	}
 	
-	//public void addAirResistance(){
-	//	Vector airResistance = new Vector(6*Math.PI*box.width)
-	//	acceleration.add(airResistance);
-	//}
+	private Vector airResistance(){
+		return new Vector((-1)*6*(1/box.width)*eta*velocity.getX(), (-1)*6*(1/box.width)*eta*velocity.getY());
+	}
 	
-	public boolean collidesWith(Point point){
+	private boolean collidesWith(Point point){
 		return shape.contains(point);
 	}
 	
