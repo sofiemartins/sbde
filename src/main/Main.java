@@ -10,7 +10,7 @@ import gui.SBDEFrame;
 public class Main {
 	
 	public static void main(String []args){
-		new SBDEFrame();
+		Constants.init();
 		EventQueue.invokeLater(new Runnable(){
 			@Override
 			public void run(){

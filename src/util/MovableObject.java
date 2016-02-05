@@ -1,6 +1,7 @@
 package util;
 
 import gui.Display;
+import static main.Constants.*;
 
 import java.awt.Shape;
 import java.awt.geom.PathIterator;
@@ -31,6 +32,11 @@ public class MovableObject {
 		shape = objectShape;
 		box = (Rectangle2D.Double)objectShape.getBounds2D();
 		image = getImage();
+		addGravitation();
+	}
+	
+	private void addGravitation(){
+		addAcceleration(new Vector(0, g));
 	}
 	
 	public void evaluatePosition(){
@@ -105,12 +111,12 @@ public class MovableObject {
 		return Matrix.rotationMatrix((-1)*angleOfIncidence).transform(planeTangent).multiply(velocity.getMagnitude());
 	}
 	
-	public void move(Vector vector){
+	public void addVelocity(Vector vector){
 		velocity = velocity.add(vector);
 		evaluatePosition(); 
 	}
 	
-	public void accelerate(Vector vector){
+	public void addAcceleration(Vector vector){
 		acceleration = acceleration.add(vector);
 		evaluatePosition();
 	}
